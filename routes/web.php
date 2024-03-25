@@ -39,10 +39,22 @@ Route::prefix('chats')->as('chats.')->group(function () {
         ]);
     })->name('index');
 
+    Route::get('create', fn () => inertia("Chats/Create", [
+        'users' => User::exceptAuth()->get()
+    ]))->name('create');
+
     Route::get('{user}', function (User $user) {
         $auth = Auth::user();
+        $chatRelations = ['messages.sender'];
 
-        $chat = Chat::with(['messages.sender'])->fromUsers($auth, $user)->first();
+        $chat = Chat::with($chatRelations)->fromUsers($auth, $user)->first();
+
+        if (!$chat) {
+            $chat = Chat::create([
+                'user_1' => $auth->id,
+                'user_2' => $user->id
+            ])->load($chatRelations);
+        }
 
         return inertia('Chats/Show', [
             'chat' => $chat,
@@ -77,6 +89,14 @@ Route::prefix('chats')->as('chats.')->group(function () {
 
         return back();
     })->name('store');
+
+    Route::delete('{chat}', function (Chat $chat) {
+        $chat->messages()->delete();
+
+        $chat->delete();
+
+        return back();
+    })->name('destroy');
 });
 
 require __DIR__.'/auth.php';

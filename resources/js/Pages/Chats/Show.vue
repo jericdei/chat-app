@@ -8,7 +8,6 @@ import InputText from "primevue/inputtext";
 import { ref } from "vue";
 import { useScroll } from "@vueuse/core";
 import { onMounted } from "vue";
-import Card from "primevue/card";
 
 const props = defineProps<{
     chat: Chat;
@@ -65,7 +64,7 @@ function submit() {
             </h2>
         </template>
 
-        <div class="p-4">
+        <div class="p-4 mt-4">
             <div
                 ref="chatContainer"
                 class="dark:text-slate-50 p-8 space-y-4 divide-y max-h-[40rem] overflow-y-auto"
@@ -80,7 +79,7 @@ function submit() {
                         :key="message.id"
                     >
                         <div
-                            class="bg-blue-500 text-white p-4 rounded-lg"
+                            class="bg-primary text-white dark:text-black p-4 rounded-lg"
                             :class="
                                 message.sender?.id === $page.props.auth.user.id
                                     ? 'float-right rounded-br-none'
@@ -109,11 +108,14 @@ function submit() {
 
             <form class="mt-4" @submit.prevent="submit">
                 <InputGroup>
-                    <InputText v-model="form.message" :rows="1" />
+                    <InputText
+                        v-model="form.message"
+                        placeholder="Type your message"
+                    />
 
                     <Button
-                        label="Send"
                         type="submit"
+                        icon="ri-send-plane-2-line"
                         @submit.prevent="submit"
                     />
                 </InputGroup>

@@ -6,6 +6,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
+import ConfirmDialog from "primevue/confirmdialog";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -33,13 +34,6 @@ const showingNavigationDropdown = ref(false);
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </NavLink>
-
                                 <NavLink
                                     :href="route('chats.index')"
                                     :active="route().current('chats.index')"
@@ -148,10 +142,10 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :href="route('chats.index')"
+                            :active="route().current('chats.index')"
                         >
-                            Dashboard
+                            Chats
                         </ResponsiveNavLink>
                     </div>
 
@@ -197,7 +191,8 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="max-w-7xl mx-auto">
+                <ConfirmDialog />
                 <slot />
             </main>
         </div>

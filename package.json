@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0",
-    "primevue": "^3.50.0"
+    "primevue": "^3.50.0",
+    "remixicon": "^4.2.0"
   }
 }

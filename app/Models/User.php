@@ -60,6 +60,7 @@ class User extends Authenticatable
             ->with(['latestMessage.sender'])
             ->where('user_1', $this->id)
             ->orWhere('user_2', $this->id)
+            ->latest()
             ->get();
     }
 }
