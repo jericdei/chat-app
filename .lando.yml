@@ -1,0 +1,63 @@
+name: laravel-chat-app
+
+recipe: laravel
+
+config:
+    webroot: ./public
+    php: "8.2"
+    config:
+        php: .lando/php.ini
+
+proxy:
+    appserver:
+        - chat-app.localhost
+
+services:
+    appserver:
+        scanner: false
+        build_as_root:
+            - ./.lando/build_as_root.sh
+        run_as_root:
+            - ./.lando/run_as_root.sh
+        moreHttpPorts:
+            - 8888
+        overrides:
+            ports:
+                - 8888:8888
+    bun:
+        api: 3
+        type: lando
+        services:
+            image: oven/bun:1.0
+            command: docker-php-entrypoint apache2-foreground
+            ports:
+                - 5191:5191
+        scanner: false
+        moreHttpPorts:
+            - 5191
+    database:
+        type: mysql:8.0
+        portforward: 33091
+        creds:
+            database: chat_app
+
+tooling:
+    bun:
+        service: bun
+    dev:
+        service: bun
+        cmd: bun run dev
+    build:
+        service: bun
+        cmd: bun run build
+    tsc:
+        service: bun
+        cmd: bun vue-tsc
+    sv-restart:
+        service: appserver
+        user: root
+        cmd:
+            - service supervisor stop
+            - service supervisor start
+            - supervisorctl start laravel-queue:*
+            - supervisorctl start laravel-reverb:*
