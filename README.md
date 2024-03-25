@@ -51,10 +51,11 @@ If you don't have Lando setup and just want to run this locally in your machine:
 
 #### Requirements
 
+-   Linux/Mac or WSL if Windows
 -   PHP 8.2 or higher
 -   Composer
 -   Web Server (Nginx/Apache) or just `php artisan serve` to serve the app
--   Supervisor
+-   Supervisor (Optional)
 -   MySQL Server
 -   Bun
 
@@ -85,6 +86,33 @@ Make sure to generate your own Reverb Credentials and update your `.env` file
 REVERB_APP_ID={my-app-id}
 REVERB_APP_KEY={my-app-key}
 REVERB_APP_SECRET={my-app-secret}
+```
+
+##### If you have Supervisor installed, you can use the configuration file:
+
+```bash
+# Make sure to replace all `/path/to/project`
+# to the correct path of your project before copying.
+sudo cp .config/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+```
+
+Run Supervisor service together with the queue and Reverb services
+
+```bash
+sudo service supervisor start
+
+sudo supervisorctl start laravel-queue:*
+sudo supervisorctl start laravel-reverb:*
+```
+
+##### If you don't have or don't want to use Supervisor:
+
+```bash
+# Separate terminal session
+php artisan queue:work
+
+# Separate terminal session
+php artisan reverb:start
 ```
 
 Run the Vite development server
