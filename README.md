@@ -24,7 +24,7 @@ lando bun install
 Setup Laravel
 
 ```bash
-cp. env.example .env
+cp .env.example .env
 
 lando artisan key:generate
 
@@ -71,7 +71,7 @@ bun install
 Setup Laravel
 
 ```bash
-cp. env.example .env
+cp .env.example .env
 
 php artisan key:generate
 

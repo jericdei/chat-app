@@ -16,11 +16,9 @@ class MessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(
-        public Chat $chat
-    )
+    public function __construct()
     {
-        $chat->load('messages.sender');
+        //
     }
 
     /**
