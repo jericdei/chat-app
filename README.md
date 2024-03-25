@@ -109,10 +109,10 @@ sudo supervisorctl start laravel-reverb:*
 
 ```bash
 # Separate terminal session
-php artisan queue:work
+php artisan queue:work database --sleep=3 --tries=3
 
 # Separate terminal session
-php artisan reverb:start
+php artisan reverb:start --host=0.0.0.0 --port=8888
 ```
 
 Run the Vite development server
