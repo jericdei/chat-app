@@ -16,9 +16,9 @@ services:
     appserver:
         scanner: false
         build_as_root:
-            - ./.lando/build_as_root.sh
+            - ./.config/build_as_root.sh
         run_as_root:
-            - ./.lando/run_as_root.sh
+            - ./.config/run_as_root.sh
         moreHttpPorts:
             - 8888
         overrides:

@@ -9,4 +9,4 @@ apt update
 apt install -y supervisor
 
 # Setup Supervisor
-cp -f /app/.lando/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+cp -f /app/.config/supervisor-lando.conf /etc/supervisor/conf.d/supervisor.conf
